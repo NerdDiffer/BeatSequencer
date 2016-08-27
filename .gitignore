@@ -1,0 +1,26 @@
+.DS_STORE
+
+# sensitive info
+.env*
+
+# Logs
+logs
+*.log
+npm-debug.log*
+
+# Runtime data
+pids
+*.pid
+*.seed
+
+# Coverage directory used by tools like istanbul
+coverage
+
+# Compiled Dirs
+client/public/*.js
+
+# Dependency directorys
+node_modules/
+
+# Editor stuff
+*.sw*
