@@ -3,8 +3,8 @@ import Row from './Row';
 import MuteButton from './MuteButton';
 import EditSequence from './EditSequence';
 import RemoveSequenceButton from './RemoveSequenceButton';
-import toneSequence from '../../instruments/beats/sequence';
-import beatSounds from '../../instruments/sounds/tick';
+import toneSequence from '../../sounds/toneSequence';
+import beatDefs from '../../sounds/beatDefs';
 
 /**
  * - toggles active sounds on a subdivision
@@ -18,7 +18,7 @@ class Sequence extends Component {
 
     const defaultEvents = [1, 0, 0, 1];
     const defaultSubdivision = '4n';
-    const sound = { tone: 'Bb4', def: beatSounds.membrane };
+    const sound = { tone: 'Bb4', def: beatDefs.membrane };
 
     this.state = {
       sound,
@@ -92,7 +92,7 @@ class Sequence extends Component {
       tone = 200;
     }
 
-    const sound = { tone, def: beatSounds[soundName] };
+    const sound = { tone, def: beatDefs[soundName] };
 
     this.setState({
       sound,
