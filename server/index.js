@@ -11,7 +11,7 @@ app.use(logger('dev'));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-const pathToStaticDir = path.resolve(__dirname, '..', 'client');
+const pathToStaticDir = path.resolve(__dirname, '..', 'client', 'public');
 app.use(express.static(pathToStaticDir));
 
 /* Routes */

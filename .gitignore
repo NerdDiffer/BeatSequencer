@@ -17,7 +17,7 @@ pids
 coverage
 
 # Compiled Dirs
-client/public/*.js
+client/public/dist/
 
 # Dependency directorys
 node_modules/
