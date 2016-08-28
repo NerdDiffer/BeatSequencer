@@ -3,8 +3,7 @@ import Row from './Row';
 import MuteButton from './MuteButton';
 import EditSequence from './EditSequence';
 import RemoveSequenceButton from './RemoveSequenceButton';
-import toneSequence from '../../sounds/toneSequence';
-import beatDefs from '../../sounds/beatDefs';
+import ToneSequence from '../../sounds/ToneSequence';
 
 /**
  * - toggles active sounds on a subdivision
@@ -16,15 +15,17 @@ class Sequence extends Component {
   constructor(props) {
     super(props);
 
-    const defaultEvents = [1, 0, 0, 1];
-    const defaultSubdivision = '4n';
-    const sound = { tone: 'Bb4', def: beatDefs.membrane };
+    const tone = 'Bb4';
+    const soundDef = 'membrane';
+    const events = [1, 0, 0, 1];
+    const subdivision = '4n';
+    //const sound = { tone, soundDef, events, subdivision };
 
     this.state = {
-      sound,
-      sequence: toneSequence(sound, defaultEvents, defaultSubdivision),
-      events: defaultEvents, // events for ToneSequence object
-      subdivision: defaultSubdivision,
+      tone,
+      soundDef,
+      events, // events for ToneSequence object
+      subdivision,
       isMute: false,
       showPopover: false
     };
@@ -34,15 +35,17 @@ class Sequence extends Component {
     this.handleEdit = this.handleEdit.bind(this);
     this.closePopover = this.closePopover.bind(this);
     this.selectSequence = this.selectSequence.bind(this);
+    this._setToneSequence = this._setToneSequence.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
+    this._setToneSequence();
     const willBePlaying = nextProps.isPlaying;
 
     if (willBePlaying) {
-      this.state.sequence.start();
+      this._toneSequence.start();
     } else {
-      this.state.sequence.stop();
+      this._toneSequence.stop();
     }
   }
 
@@ -55,12 +58,11 @@ class Sequence extends Component {
       ...events.slice(index + 1)
     ];
 
-    const newSequence = toneSequence(this.state.sound, newEvents, this.state.subdivision);
-
     this.setState({
       events: newEvents,
-      sequence: newSequence
     });
+
+    this._setToneSequence();
   }
 
   toggleMute() {
@@ -73,6 +75,7 @@ class Sequence extends Component {
 
   handleEdit(event) {
     event.preventDefault();
+
     this.setState({
       showPopover: true,
       anchorEl: event.currentTarget
@@ -83,21 +86,32 @@ class Sequence extends Component {
     this.setState({ showPopover: false });
   }
 
-  selectSequence(_event, _key, soundName) {
+  _setToneSequence() {
+    const sound = {
+      tone: this.state.tone,
+      soundDef: this.state.soundDef,
+      events: this.state.events,
+      subdivision: this.state.subdivision
+    };
+
+    this._toneSequence = new ToneSequence(sound);
+  }
+
+  selectSequence(_event, _key, soundDef) {
     let tone;
 
-    if (soundName === 'membrane') {
+    if (soundDef === 'membrane') {
       tone = 'Bb4';
     } else {
       tone = 200;
     }
 
-    const sound = { tone, def: beatDefs[soundName] };
-
     this.setState({
-      sound,
-      sequence: toneSequence(sound, this.state.events, this.state.subdivision)
+      tone,
+      soundDef
     });
+
+    this._setToneSequence();
   }
 
   render() {
