@@ -1,4 +1,5 @@
 import { Sequence } from 'tone';
+import beatDefs from './beatDefs';
 
 /**
  * Create a Tone.Sequence object.
@@ -14,7 +15,8 @@ import { Sequence } from 'tone';
  * @param events, {Array} sequence of events to play
  * @param subdivision, {String}, subdivision between which events are placed.
  */
-const sequence = ({ tone, def }, events, subdivision) => {
+const ToneSequence = ({ tone, soundDef, events, subdivision }) => {
+  const beatDef = beatDefs[soundDef];
   const toneEvents = events.map(event => {
     if (event === 0) {
       return null;
@@ -24,8 +26,8 @@ const sequence = ({ tone, def }, events, subdivision) => {
   });
 
   return new Sequence(time => {
-    def.triggerAttackRelease(tone);
+    beatDef.triggerAttackRelease(tone);
   }, toneEvents, subdivision);
 };
 
-export default sequence;
+export default ToneSequence;
