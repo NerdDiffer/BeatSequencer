@@ -2,7 +2,7 @@ import React from 'react';
 import IconButton from 'material-ui/IconButton';
 
 const MuteButton = ({ isMute, handleClick }) => (
-  <div className="muteButton" onClick={handleClick}>
+  <div className="mute button" onClick={handleClick}>
     <IconButton
       iconClassName="material-icons"
     >

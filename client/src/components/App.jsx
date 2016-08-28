@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react'
-import baseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
+import baseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import BeatSequencer from './BeatSequencer';

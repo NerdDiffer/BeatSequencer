@@ -1,5 +1,6 @@
 const webpack = require('webpack');
 const path = require('path');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 const SRC_DIR = path.join(__dirname, 'client', 'src');
 const DIST_DIR = path.join(__dirname, 'client', 'public', 'dist');
@@ -11,7 +12,10 @@ const config = {
     modulesDirectories: ['node_modules'],
     extensions: ['', '.js', '.jsx']
   },
-  entry: [path.join(SRC_DIR, 'index.jsx')],
+  entry: [
+    path.join(SRC_DIR, 'styles', 'index.less'),
+    path.join(SRC_DIR, 'index.jsx'),
+  ],
   output: {
     path: DIST_DIR,
     filename: 'bundle.js'
@@ -19,12 +23,22 @@ const config = {
   module: {
     loaders: [
       {
-        test: /\.jsx?/,
+        test: /\.less$/,
+        include: path.join(SRC_DIR, 'styles'),
+        loader: ExtractTextPlugin.extract(
+          'css?inlineSourceMap!less?inlineSourceMap'
+        )
+      },
+      {
+        test: /\.jsx?$/,
         include: SRC_DIR,
         loader: 'babel'
       }
     ]
-  }
+  },
+  plugins: [
+    new ExtractTextPlugin('styles.css')
+  ]
 };
 
 module.exports = config;

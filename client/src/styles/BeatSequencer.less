@@ -1,0 +1,36 @@
+@import './variables.less';
+@import './mixins.less';
+
+.beatSequencer {
+  .sequence {
+    height: 5rem;
+  }
+
+  .controls {
+    display: inline-block;
+    width: 15%;
+
+    .button, .editSequence {
+      display: inline-block;
+      vertical-align: bottom;
+    }
+  }
+
+  .row {
+    height: 3rem;
+    width: 85%;
+    display: inline-block;
+    vertical-align: super;
+
+    .beatBox {
+      height: 80%;
+      width: 21%;
+      border: 1px solid black;
+      display: inline-block;
+      margin: 0.25%;
+    }
+    .selected {
+      background-color: @color-primary;
+    }
+  }
+}

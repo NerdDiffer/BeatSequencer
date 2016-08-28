@@ -2,7 +2,7 @@ import React from 'react';
 import IconButton from 'material-ui/IconButton';
 
 const PlayStopButton = ({ isPlaying, handleClick }) => (
-  <div className="playStopButton" onClick={handleClick}>
+  <div className="playStop button" onClick={handleClick}>
     <IconButton
       iconClassName="material-icons"
     >

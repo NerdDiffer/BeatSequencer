@@ -2,7 +2,7 @@ import React from 'react';
 import IconButton from 'material-ui/IconButton';
 
 const RemoveSequenceButton = ({ handleClick }) => (
-  <div className="removeSequence" onClick={handleClick}>
+  <div className="removeSequence button" onClick={handleClick}>
     <IconButton iconClassName="material-icons">remove_circle_outline</IconButton>
   </div>
 );
