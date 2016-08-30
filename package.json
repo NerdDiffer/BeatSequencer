@@ -44,7 +44,9 @@
     "morgan": "^1.7.0",
     "react": "^15.3.0",
     "react-dom": "^15.3.0",
+    "react-redux": "^4.4.5",
     "react-tap-event-plugin": "^1.0.0",
+    "redux": "^3.5.2",
     "style-loader": "^0.13.1",
     "tone": "^0.7.1",
     "webpack": "^1.13.1"
