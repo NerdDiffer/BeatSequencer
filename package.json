@@ -27,7 +27,8 @@
     "eslint-plugin-import": "^1.12.0",
     "eslint-plugin-jsx-a11y": "^2.0.1",
     "eslint-plugin-react": "^6.0.0",
-    "nodemon": "^1.10.0"
+    "nodemon": "^1.10.0",
+    "redux-logger": "^2.6.1"
   },
   "dependencies": {
     "babel-loader": "^6.2.4",
