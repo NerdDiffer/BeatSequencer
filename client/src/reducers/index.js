@@ -12,10 +12,10 @@ const sequences = (state = [], action) => {
     case ADD_SEQUENCE:
       return [
         ...state,
-        action.sequenceId
+        action.sequence
       ];
     case REMOVE_SEQUENCE:
-      return state.filter((sequenceId) => sequenceId !== action.sequenceId);
+      return state.filter((sequence) => sequence.id !== action.sequence.id);
     default:
       return state
   }

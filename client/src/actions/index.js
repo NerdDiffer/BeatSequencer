@@ -5,17 +5,17 @@ import {
   TOGGLE_PLAYING
 } from './types';
 
-export const addSequence = sequenceId => {
+export const addSequence = sequence => {
   return {
     type: ADD_SEQUENCE,
-    sequenceId
+    sequence
   };
 };
 
-export const removeSequence = sequenceId => {
+export const removeSequence = sequence => {
   return {
     type: REMOVE_SEQUENCE,
-    sequenceId
+    sequence
   };
 };
 
