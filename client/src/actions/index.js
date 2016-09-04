@@ -13,10 +13,10 @@ export const addSequence = sequence => {
   };
 };
 
-export const removeSequence = id => {
+export const removeSequence = sequence => {
   return {
     type: REMOVE_SEQUENCE,
-    id
+    id: sequence.id
   };
 };
 
