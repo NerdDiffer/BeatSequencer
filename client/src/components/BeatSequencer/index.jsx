@@ -54,11 +54,10 @@ class BeatSequencer extends Component {
     actions.addSequence(newSequence);
   }
 
-  removeSequence(index) {
+  removeSequence(sequenceId) {
     const { actions } = this.props;
 
-    // TODO: need to grab the ID from the sequence you are trying to remove
-    actions.removeSequence({ id: index });
+    actions.removeSequence({ id: sequenceId });
   }
 
   render() {
@@ -67,7 +66,7 @@ class BeatSequencer extends Component {
       const { sequences, isPlaying, actions } = this.props;
 
       return sequences.map((sequence, index) => {
-        const removeThisSequence = removeSequence.bind(null, index);
+        const removeThisSequence = removeSequence.bind(null, sequence.id);
 
         return (
           <Sequence
