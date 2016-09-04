@@ -41,7 +41,7 @@ describe('Beat Sequencer Reducer', () => {
 
     it('should handle ADD_SEQUENCE action', () => {
       var action = {
-        type: 'ADD_SEQUENCE',
+        type: ADD_SEQUENCE,
         sequence: testSequence2
       };
       var actual = sequences(testSequences, action);
@@ -52,7 +52,7 @@ describe('Beat Sequencer Reducer', () => {
 
     it('should handle REMOVE_SEQUENCE action', () => {
       testSequences = testSequences.concat(testSequence2);
-      var action = { type: 'REMOVE_SEQUENCE', id: 1 };
+      var action = { type: REMOVE_SEQUENCE, id: 1 };
       var actual = sequences(testSequences, action);
       expect(actual).toEqual([testSequence2])
     });
