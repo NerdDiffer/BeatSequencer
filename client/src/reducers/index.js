@@ -39,12 +39,21 @@ const initialSequences = [
   }
 ];
 
+// pass this function into a call to Array.prototype.reduce
+const nextId = (maxId, sequence) => Math.max(sequence.id, maxId);
+
 const sequences = (state = initialSequences, action) => {
   switch (action.type) {
     case ADD_SEQUENCE:
+      const newId = state.reduce(nextId, -1) + 1;
+      const newSequence = Object.assign(
+        action.sequence,
+        { id: newId }
+      );
+
       return [
         ...state,
-        action.sequence
+        newSequence
       ];
     case REMOVE_SEQUENCE:
       return state.filter((sequence) => sequence.id !== action.id);
