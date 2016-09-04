@@ -12,10 +12,10 @@ export const addSequence = sequence => {
   };
 };
 
-export const removeSequence = sequence => {
+export const removeSequence = id => {
   return {
     type: REMOVE_SEQUENCE,
-    sequence
+    id
   };
 };
 
@@ -29,5 +29,11 @@ export const changeBPM = bpm => {
 export const togglePlaying = () => {
   return {
     type: TOGGLE_PLAYING
+  };
+};
+
+export const getAllSequences = () => {
+  return {
+    type: 'default'
   };
 };
