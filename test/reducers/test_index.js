@@ -13,17 +13,6 @@ import {
   TOGGLE_PLAYING
 } from '../../client/src/actions/types';
 
-//const testIndex = store => {
-//  store.dispatch(addSequence(1));
-//  store.dispatch(addSequence(2));
-//  store.dispatch(addSequence(3));
-//  store.dispatch(removeSequence(3));
-//  store.dispatch(removeSequence(2));
-//  store.dispatch(removeSequence(1));
-//  store.dispatch(changeBPM(80));
-//  store.dispatch(togglePlaying());
-//};
-
 describe('Beat Sequencer Reducer', () => {
   describe('sequences', () => {
     let testSequence1;
