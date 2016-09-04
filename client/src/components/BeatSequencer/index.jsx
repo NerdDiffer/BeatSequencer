@@ -18,12 +18,6 @@ class BeatSequencer extends Component {
     const bpm = 120;
     Transport.bpm.value = bpm;
 
-    this.state = {
-      bpm,
-      isPlaying: false,
-      sequences: [<Sequence isPlaying={false} />]
-    };
-
     this.togglePlaying = this.togglePlaying.bind(this);
     this.changeBPM = this.changeBPM.bind(this);
     this.addSequence = this.addSequence.bind(this);
@@ -31,9 +25,8 @@ class BeatSequencer extends Component {
   }
 
   togglePlaying() {
-    this.setState({
-      isPlaying: !this.state.isPlaying
-    });
+    const { actions } = this.props;
+    actions.togglePlaying();
 
     if (Transport.state !== 'started') {
       Transport.start();
@@ -43,37 +36,35 @@ class BeatSequencer extends Component {
   }
 
   changeBPM(_event, value) {
-    this.setState({ bpm: value });
+    const { actions } = this.props;
+    actions.changeBPM(value);
+
     Transport.bpm.value = value;
   }
 
   addSequence() {
-    const sequences = this.state.sequences;
-    const newSequence = <Sequence isPlaying={false} />;
+    const { actions } = this.props;
+    const newSequence = {
+      tone: 'Bb4',
+      soundDef: 'membrane',
+      events: [1,1,1,1],
+      subdivision: '4n'
+    };
 
-    this.setState({
-      sequences: sequences.concat([newSequence])
-    });
+    actions.addSequence(newSequence);
   }
 
   removeSequence(index) {
-    const sequences = this.state.sequences;
+    const { actions } = this.props;
 
-    const newSequences= [
-      ...sequences.slice(0, index),
-      ...sequences.slice(index + 1)
-    ];
-
-    this.setState({
-      sequences: newSequences
-    });
+    // TODO: need to grab the ID from the sequence you are trying to remove
+    actions.removeSequence({ id: index });
   }
 
   render() {
     const removeSequence = this.removeSequence;
     const renderSequences = () => {
-      const sequences = this.state.sequences;
-      const isPlaying = this.state.isPlaying;
+      const { sequences, isPlaying } = this.props;
 
       return sequences.map((sequence, index) => {
         const removeThisSequence = removeSequence.bind(null, index);
@@ -93,14 +84,14 @@ class BeatSequencer extends Component {
         <div className="controls">
           <h2>Controls</h2>
           <PlayStopButton
-            isPlaying={this.state.isPlaying}
+            isPlaying={this.props.isPlaying}
             handleClick={this.togglePlaying}
           />
           <TempoSlider
-            bpm={this.state.bpm}
+            bpm={this.props.bpm}
             changeBPM={this.changeBPM}
           />
-          Tempo: { this.state.bpm } bpm
+          Tempo: { this.props.bpm } bpm
         </div>
         <hr />
         <div className="sequences">
