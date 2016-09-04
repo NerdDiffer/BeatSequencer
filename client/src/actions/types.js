@@ -1,5 +1,6 @@
 export const ADD_SEQUENCE = 'ADD_SEQUENCE';
 export const REMOVE_SEQUENCE = 'REMOVE_SEQUENCE';
+export const UPDATE_SEQUENCE = 'UPDATE_SEQUENCE';
 export const CHANGE_BPM = 'CHANGE_BPM';
 export const TOGGLE_PLAYING = 'TOGGLE_PLAYING';
 

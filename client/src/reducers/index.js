@@ -3,6 +3,7 @@ import { combineReducers } from 'redux';
 import {
   ADD_SEQUENCE,
   REMOVE_SEQUENCE,
+  UPDATE_SEQUENCE,
   CHANGE_BPM,
   TOGGLE_PLAYING
 } from '../actions/types';
@@ -16,6 +17,22 @@ const sequences = (state = [], action) => {
       ];
     case REMOVE_SEQUENCE:
       return state.filter((sequence) => sequence.id !== action.id);
+    case UPDATE_SEQUENCE:
+      const update = sequence => {
+        if (sequence.id !== action.sequence.id) {
+          return sequence
+        } else {
+          const { tone, soundDef, events, subdivision } = action.sequence;
+
+          return Object.assign(
+            {},
+            sequence,
+            { tone, soundDef, events, subdivision }
+          );
+        }
+      };
+
+      return state.map(update);
     default:
       return state
   }

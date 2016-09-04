@@ -1,6 +1,7 @@
 import {
   ADD_SEQUENCE,
   REMOVE_SEQUENCE,
+  UPDATE_SEQUENCE,
   CHANGE_BPM,
   TOGGLE_PLAYING
 } from './types';
@@ -16,6 +17,13 @@ export const removeSequence = id => {
   return {
     type: REMOVE_SEQUENCE,
     id
+  };
+};
+
+export const updateSequence = sequence => {
+  return {
+    type: UPDATE_SEQUENCE,
+    sequence
   };
 };
 
