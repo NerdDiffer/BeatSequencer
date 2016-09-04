@@ -15,19 +15,11 @@ class Sequence extends Component {
   constructor(props) {
     super(props);
 
-    const tone = 'Bb4';
-    const soundDef = 'membrane';
-    const events = [1, 0, 0, 1];
-    const subdivision = '4n';
-    //const sound = { tone, soundDef, events, subdivision };
-
+    // continue store UI state in this component
     this.state = {
-      tone,
-      soundDef,
-      events, // events for ToneSequence object
-      subdivision,
-      isMute: false,
-      showPopover: false
+      isMute: false, // TODO: decide if this should be part of global state
+      showPopover: false,
+      anchorEl: null
     };
 
     this.toggleBeat = this.toggleBeat.bind(this);
@@ -50,17 +42,22 @@ class Sequence extends Component {
   }
 
   toggleBeat(index) {
-    const events = this.state.events;
+    const { actions, id, tone, soundDef, events, subdivision } = this.props;
     const newValue = events[index] === 0 ? 1 : 0;
     const newEvents = [
       ...events.slice(0, index),
       newValue,
       ...events.slice(index + 1)
     ];
-
-    this.setState({
+    const updatedSequence = {
+      id,
+      tone,
+      soundDef,
       events: newEvents,
-    });
+      subdivision
+    };
+
+    actions.updateSequence(updatedSequence);
 
     this._setToneSequence();
   }
@@ -87,31 +84,34 @@ class Sequence extends Component {
   }
 
   _setToneSequence() {
+    const { tone, soundDef, events, subdivision } = this.props;
     const sound = {
-      tone: this.state.tone,
-      soundDef: this.state.soundDef,
-      events: this.state.events,
-      subdivision: this.state.subdivision
+      tone,
+      soundDef,
+      events,
+      subdivision
     };
 
     this._toneSequence = new ToneSequence(sound);
   }
 
   selectSequence(_event, _key, soundDef) {
-    let tone;
+    console.log('Figure this out');
+    return;
+    //let tone;
 
-    if (soundDef === 'membrane') {
-      tone = 'Bb4';
-    } else {
-      tone = 200;
-    }
+    //if (soundDef === 'membrane') {
+    //  tone = 'Bb4';
+    //} else {
+    //  tone = 200;
+    //}
 
-    this.setState({
-      tone,
-      soundDef
-    });
+    //this.setState({
+    //  tone,
+    //  soundDef
+    //});
 
-    this._setToneSequence();
+    //this._setToneSequence();
   }
 
   render() {
@@ -133,7 +133,7 @@ class Sequence extends Component {
             handleSelect={this.selectSequence}
           />
         </div>
-        <Row events={this.state.events} handleClick={this.toggleBeat} />
+        <Row events={this.props.events} handleClick={this.toggleBeat} />
       </div>
     );
   }
