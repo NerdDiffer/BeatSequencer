@@ -8,6 +8,7 @@ import rootReducer, {
 import {
   ADD_SEQUENCE,
   REMOVE_SEQUENCE,
+  UPDATE_SEQUENCE,
   CHANGE_BPM,
   TOGGLE_PLAYING
 } from '../../client/src/actions/types';
@@ -55,6 +56,31 @@ describe('Beat Sequencer Reducer', () => {
       var action = { type: REMOVE_SEQUENCE, id: 1 };
       var actual = sequences(testSequences, action);
       expect(actual).toEqual([testSequence2])
+    });
+
+    it('should handle UPDATE_SEQUENCE action', () => {
+      testSequences = testSequences.concat(testSequence2);
+      var newSequence1 = {
+        id: 1,
+        tone: 'foo',
+        soundDef: 'bar',
+        events: [1,1,1,1],
+        subdivision: '8n'
+      };
+
+      var action = {
+        type: UPDATE_SEQUENCE,
+        sequence: {
+          id: 1,
+          tone: newSequence1.tone,
+          soundDef: newSequence1.soundDef,
+          events: newSequence1.events,
+          subdivision: newSequence1.subdivision
+        }
+      };
+      var actual = sequences(testSequences, action);
+      var expected = [newSequence1, testSequence2];
+      expect(actual).toEqual(expected);
     });
 
     it('should ignore unknown actions', () => {
