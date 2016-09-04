@@ -15,7 +15,7 @@ const sequences = (state = [], action) => {
         action.sequence
       ];
     case REMOVE_SEQUENCE:
-      return state.filter((sequence) => sequence.id !== action.sequence.id);
+      return state.filter((sequence) => sequence.id !== action.id);
     default:
       return state
   }
@@ -44,3 +44,5 @@ export default combineReducers({
   bpm,
   playing
 });
+
+export { sequences, bpm, playing };
