@@ -25,10 +25,6 @@ describe('Beat Sequencer Reducer', () => {
       testSequences = [testSequence1];
     });
 
-    it('should provide the initial state', () => {
-      expect(sequences(undefined, {})).toEqual([])
-    });
-
     it('should handle ADD_SEQUENCE action', () => {
       var action = {
         type: ADD_SEQUENCE,
