@@ -48,3 +48,5 @@ export default combineReducers({
   events,
   subdivision
 });
+
+export { tone, soundDef, events, subdivision };
