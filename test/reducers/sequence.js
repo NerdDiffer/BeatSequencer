@@ -85,4 +85,26 @@ describe('Sequence Reducer', () => {
       expect(actual).toEqual(defaultEvents);
     });
   });
+
+  describe('subdivision', () => {
+    it('should provide the initial state', () => {
+      expect(subdivision(undefined, {})).toEqual('4n')
+    });
+
+    it('should handle CHANGE_SUBDIVISION action', () => {
+      var action = {
+        type: CHANGE_SUBDIVISION,
+        subdivision: bar
+      };
+      var actual = subdivision(foo, action);
+
+      expect(actual).toEqual(bar);
+    });
+
+    it('should ignore unknown actions', () => {
+      var action = { type: 'unknown' };
+      var actual = subdivision(foo, action);
+      expect(actual).toEqual(foo);
+    });
+  });
 });
