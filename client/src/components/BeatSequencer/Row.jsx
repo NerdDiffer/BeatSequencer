@@ -1,28 +1,32 @@
 import React from 'react';
 import classnames from 'classnames';
+import Beat from './Beat';
 
-/**
- * - receives props from parent `Sequence`
- * - renders each subdivision of the beat
- */
 const Row = ({ events, handleClick }) => {
-  const renderBeat = (beat, index) => {
-    const beatStyle = classnames({ selected: beat === 1 }, 'beatBox');
-    const handleClickForIndex = handleClick.bind(null, index);
+  const renderBeat = (event, index) => {
+    return (
+      <Beat
+        event={event}
+        key={index}
+        handleClick={handleClick}
+      />
+    );
+  };
 
-    return <div className={beatStyle} key={index} onClick={handleClickForIndex} />;
+  const renderBeats = events => {
+    return events.map(renderBeat);
   };
 
   return (
     <div className="row">
-      { events.map((beat, index) => renderBeat(beat, index)) }
+      {renderBeats(events)}
     </div>
   );
 };
 
 Row.propTypes = {
   events: React.PropTypes.array.isRequired,
-  handleClick: React.PropTypes.func.isRequired,
+  handleClick: React.PropTypes.func.isRequired
 };
 
 export default Row;
