@@ -6,7 +6,7 @@
   "scripts": {
     "prestart": "npm install",
     "front-end": "webpack --watch",
-    "back-end": "node server/index.js",
+    "back-end": "nodemon server/index.js",
     "start": "npm run front-end & npm run back-end",
     "lint": "eslint",
     "test": "mocha --compilers js:babel-register --recursive",
