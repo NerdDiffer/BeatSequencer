@@ -22,12 +22,19 @@
     display: inline-block;
     vertical-align: super;
 
+    .beat {
+      height: 100%;
+      width: 25%;
+      display: inline-block;
+    }
+
     .beatBox {
       height: 80%;
-      width: 21%;
+      // width: 21%; // set by number of sibling boxes instead, see React component
       border: 1px solid black;
       display: inline-block;
       margin: 0.25%;
+      .box-sizing(border-box);
     }
     .selected {
       background-color: @color-primary;
