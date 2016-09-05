@@ -50,7 +50,8 @@ describe('Beat Sequencer Reducer', () => {
         tone: 'foo',
         soundDef: 'bar',
         events: [1,1,1,1],
-        subdivision: '8n'
+        subdivision: '8n',
+        mute: false
       };
 
       var action = {
@@ -60,7 +61,8 @@ describe('Beat Sequencer Reducer', () => {
           tone: newSequence1.tone,
           soundDef: newSequence1.soundDef,
           events: newSequence1.events,
-          subdivision: newSequence1.subdivision
+          subdivision: newSequence1.subdivision,
+          mute: newSequence1.mute
         }
       };
       var actual = sequences(testSequences, action);

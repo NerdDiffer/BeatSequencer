@@ -14,28 +14,32 @@ const initialSequences = [
     tone: '200',
     soundDef: 'bell',
     events: [1, 0, 0, 0],
-    subdivision: '4n'
+    subdivision: '4n',
+    mute: false
   },
   {
     id: 1,
     tone: '200',
     soundDef: 'conga',
     events: [0, 1, 0, 0],
-    subdivision: '4n'
+    subdivision: '4n',
+    mute: false
   },
   {
     id: 2,
     tone: 'Bb4',
     soundDef: 'membrane',
     events: [0, 0, 1, 0],
-    subdivision: '4n'
+    subdivision: '4n',
+    mute: false
   },
   {
     id: 3,
     tone: '200',
     soundDef: 'metal',
     events: [0, 0, 0, 1],
-    subdivision: '4n'
+    subdivision: '4n',
+    mute: false
   }
 ];
 
@@ -62,12 +66,12 @@ const sequences = (state = initialSequences, action) => {
         if (sequence.id !== action.sequence.id) {
           return sequence
         } else {
-          const { tone, soundDef, events, subdivision } = action.sequence;
+          const { tone, soundDef, events, subdivision, mute } = action.sequence;
 
           return Object.assign(
             {},
             sequence,
-            { tone, soundDef, events, subdivision }
+            { tone, soundDef, events, subdivision, mute }
           );
         }
       };

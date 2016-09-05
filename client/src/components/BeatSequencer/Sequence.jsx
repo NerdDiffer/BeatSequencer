@@ -17,7 +17,6 @@ class Sequence extends Component {
 
     // continue store UI state in this component
     this.state = {
-      isMute: false, // TODO: decide if this should be part of global state
       showPopover: false,
       anchorEl: null
     };
@@ -42,7 +41,7 @@ class Sequence extends Component {
   }
 
   toggleBeat(index) {
-    const { actions, id, tone, soundDef, events, subdivision } = this.props;
+    const { actions, id, tone, soundDef, events, subdivision, mute } = this.props;
     const newValue = events[index] === 0 ? 1 : 0;
     const newEvents = [
       ...events.slice(0, index),
@@ -54,7 +53,8 @@ class Sequence extends Component {
       tone,
       soundDef,
       events: newEvents,
-      subdivision
+      subdivision,
+      mute
     };
 
     actions.updateSequence(updatedSequence);
@@ -63,11 +63,18 @@ class Sequence extends Component {
   }
 
   toggleMute() {
-    const isMute = this.state.isMute;
+    const { actions, id, tone, soundDef, events, subdivision, mute } = this.props;
 
-    this.setState({
-      isMute: !isMute
-    });
+    const updatedSequence = {
+      id,
+      tone,
+      soundDef,
+      events,
+      subdivision,
+      mute: !mute
+    };
+
+    actions.updateSequence(updatedSequence);
   }
 
   handleEdit(event) {
@@ -96,7 +103,7 @@ class Sequence extends Component {
   }
 
   editSoundDef(_event, _key, soundDef) {
-    const { actions, id, events, subdivision } = this.props;
+    const { actions, id, events, subdivision, mute } = this.props;
 
     let tone;
 
@@ -111,7 +118,8 @@ class Sequence extends Component {
       tone,
       soundDef,
       events,
-      subdivision
+      subdivision,
+      mute
     };
 
     actions.updateSequence(updatedSequence);
@@ -126,7 +134,7 @@ class Sequence extends Component {
             handleClick={this.props.handleClick}
           />
           <MuteButton
-            isMute={this.state.isMute}
+            isMute={this.props.mute}
             handleClick={this.toggleMute}
           />
           <EditSequence

@@ -48,7 +48,8 @@ class BeatSequencer extends Component {
       tone: 'Bb4',
       soundDef: 'membrane',
       events: [1,1,1,1],
-      subdivision: '4n'
+      subdivision: '4n',
+      mute: false
     };
 
     actions.addSequence(newSequence);
@@ -66,7 +67,7 @@ class BeatSequencer extends Component {
       const { sequences, isPlaying, actions } = this.props;
 
       return sequences.map((sequence, index) => {
-        const { id, tone, soundDef, events, subdivision } = sequence;
+        const { id, tone, soundDef, events, subdivision, mute } = sequence;
         const removeThisSequence = removeSequence.bind(null, id);
 
         return (
@@ -80,6 +81,7 @@ class BeatSequencer extends Component {
             soundDef={soundDef}
             events={events}
             subdivision={subdivision}
+            mute={mute}
           />
         );
       });
