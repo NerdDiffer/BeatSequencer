@@ -99,6 +99,10 @@ class Sequence extends Component {
       subdivision
     };
 
+    if (this._toneSequence) {
+      this._toneSequence.dispose();
+    }
+
     this._toneSequence = new ToneSequence(sound);
   }
 
