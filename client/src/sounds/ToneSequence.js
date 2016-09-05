@@ -1,6 +1,17 @@
 import { Sequence } from 'tone';
 import beatDefs from './beatDefs';
 
+const targetEvents = event => {
+  if (Array.isArray(event)) {
+    // handle subdivisions, represented by nested arrays
+    return event.map(e => targetEvents(e));
+  } else if (event === 0) {
+    return null;
+  } else {
+    return event;
+  }
+};
+
 /**
  * Create a Tone.Sequence object.
  * For details, see: https://tonejs.github.io/docs/#Sequence
@@ -17,13 +28,7 @@ import beatDefs from './beatDefs';
  */
 const ToneSequence = ({ tone, soundDef, events, subdivision }) => {
   const beatDef = beatDefs[soundDef];
-  const toneEvents = events.map(event => {
-    if (event === 0) {
-      return null;
-    } else {
-      return event;
-    }
-  });
+  const toneEvents = events.map(targetEvents);
 
   return new Sequence(time => {
     beatDef.triggerAttackRelease(tone);
