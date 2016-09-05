@@ -7,7 +7,7 @@ import {
 } from '../actions/types';
 
 const tone = (state = 'Bb4', action) => {
-  switch(action.type) {
+  switch (action.type) {
     case CHANGE_TONE:
       return action.tone;
     default:
@@ -16,7 +16,7 @@ const tone = (state = 'Bb4', action) => {
 };
 
 const soundDef = (state = 'membrane', action) => {
-  switch(action.type) {
+  switch (action.type) {
     case CHANGE_SOUND_DEF:
       return action.soundDef;
     default:
@@ -25,7 +25,7 @@ const soundDef = (state = 'membrane', action) => {
 };
 
 const events = (state = [1, 0, 0, 1], action) => {
-  switch(action.type) {
+  switch (action.type) {
     case CHANGE_EVENTS:
       return action.events;
     default:
@@ -34,7 +34,7 @@ const events = (state = [1, 0, 0, 1], action) => {
 };
 
 const subdivision = (state = '4n', action) => {
-  switch(action.type) {
+  switch (action.type) {
     case CHANGE_SUBDIVISION:
       return action.subdivision;
     default:

@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-//import sequence from './sequence'
+// import sequence from './sequence'
 import {
   ADD_SEQUENCE,
   REMOVE_SEQUENCE,
@@ -48,7 +48,7 @@ const nextId = (maxId, sequence) => Math.max(sequence.id, maxId);
 
 const sequences = (state = initialSequences, action) => {
   switch (action.type) {
-    case ADD_SEQUENCE:
+    case ADD_SEQUENCE: {
       const newId = state.reduce(nextId, -1) + 1;
       const newSequence = Object.assign(
         action.sequence,
@@ -59,12 +59,13 @@ const sequences = (state = initialSequences, action) => {
         ...state,
         newSequence
       ];
+    }
     case REMOVE_SEQUENCE:
       return state.filter((sequence) => sequence.id !== action.id);
-    case UPDATE_SEQUENCE:
+    case UPDATE_SEQUENCE: {
       const update = sequence => {
         if (sequence.id !== action.sequence.id) {
-          return sequence
+          return sequence;
         } else {
           const { tone, soundDef, events, subdivision, mute } = action.sequence;
 
@@ -77,13 +78,14 @@ const sequences = (state = initialSequences, action) => {
       };
 
       return state.map(update);
+    }
     default:
-      return state
+      return state;
   }
 };
 
 const bpm = (state = 120, action) => {
-  switch(action.type) {
+  switch (action.type) {
     case CHANGE_BPM:
       return action.bpm;
     default:
@@ -92,7 +94,7 @@ const bpm = (state = 120, action) => {
 };
 
 const playing = (state = false, action) => {
-  switch(action.type) {
+  switch (action.type) {
     case TOGGLE_PLAYING:
       return !state;
     default:
