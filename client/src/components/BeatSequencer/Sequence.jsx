@@ -26,7 +26,7 @@ class Sequence extends Component {
     this.toggleMute = this.toggleMute.bind(this);
     this.handleEdit = this.handleEdit.bind(this);
     this.closePopover = this.closePopover.bind(this);
-    this.selectSequence = this.selectSequence.bind(this);
+    this.editSoundDef = this.editSoundDef.bind(this);
     this._setToneSequence = this._setToneSequence.bind(this);
   }
 
@@ -95,23 +95,27 @@ class Sequence extends Component {
     this._toneSequence = new ToneSequence(sound);
   }
 
-  selectSequence(_event, _key, soundDef) {
-    console.log('Figure this out');
-    return;
-    //let tone;
+  editSoundDef(_event, _key, soundDef) {
+    const { actions, id, events, subdivision } = this.props;
 
-    //if (soundDef === 'membrane') {
-    //  tone = 'Bb4';
-    //} else {
-    //  tone = 200;
-    //}
+    let tone;
 
-    //this.setState({
-    //  tone,
-    //  soundDef
-    //});
+    if (soundDef === 'membrane') {
+      tone = 'Bb4';
+    } else {
+      tone = 200;
+    }
 
-    //this._setToneSequence();
+    const updatedSequence = {
+      id,
+      tone,
+      soundDef,
+      events,
+      subdivision
+    };
+
+    actions.updateSequence(updatedSequence);
+    this._setToneSequence();
   }
 
   render() {
@@ -130,7 +134,7 @@ class Sequence extends Component {
             showPopover={this.state.showPopover}
             handleOpen={this.handleEdit}
             handleClose={this.closePopover}
-            handleSelect={this.selectSequence}
+            handleSelect={this.editSoundDef}
           />
         </div>
         <Row events={this.props.events} handleClick={this.toggleBeat} />
