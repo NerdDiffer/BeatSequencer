@@ -33,7 +33,11 @@ const config = {
         test: /\.jsx?$/,
         include: SRC_DIR,
         loader: 'babel'
-      }
+      },
+      {
+        test: /\.(wav|mp3)$/i,
+        loader: 'file?name=sounds/TR808/[name].[ext]'
+      },
     ]
   },
   plugins: [
