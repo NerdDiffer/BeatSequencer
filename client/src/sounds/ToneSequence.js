@@ -4,7 +4,12 @@ import TR808 from './TR808';
 import ToneSampler from './ToneSampler';
 
 const mapSound = soundDef => {
-  return beatDefs[soundDef] || TR808[soundDef];
+  if (beatDefs[soundDef]) {
+    return beatDefs[soundDef];
+  } else if (TR808[soundDef]) {
+    const soundUrl = `/sounds/TR808/${TR808[soundDef]}`;
+    return ToneSampler(soundUrl);
+  }
 };
 
 const targetEvents = event => {

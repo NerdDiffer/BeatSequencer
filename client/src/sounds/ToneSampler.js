@@ -1,7 +1,7 @@
 import { Sampler } from 'tone';
 
 const ToneSampler = soundUrl => {
-  new Sampler(soundUrl => {
+  return new Sampler(soundUrl, () => {
     console.log(soundUrl);
   }).toMaster();
 };
