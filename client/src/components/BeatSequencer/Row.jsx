@@ -9,6 +9,7 @@ const Row = ({ events, handleClick }) => {
         event={event}
         key={index}
         handleClick={handleClick}
+        beatIndex={index}
       />
     );
   };

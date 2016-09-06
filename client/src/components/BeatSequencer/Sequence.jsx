@@ -4,6 +4,7 @@ import MuteButton from './MuteButton';
 import EditSequence from './EditSequence';
 import RemoveSequenceButton from './RemoveSequenceButton';
 import ToneSequence from '../../sounds/ToneSequence';
+import { deepSplice } from '../../utils';
 
 /**
  * - toggles active sounds on a subdivision
@@ -40,14 +41,9 @@ class Sequence extends Component {
     }
   }
 
-  toggleBeat(index) {
+  toggleBeat(beatIndex, index) {
     const { actions, id, tone, soundDef, events, subdivision, mute } = this.props;
-    const newValue = events[index] === 0 ? 1 : 0;
-    const newEvents = [
-      ...events.slice(0, index),
-      newValue,
-      ...events.slice(index + 1)
-    ];
+    const newEvents = deepSplice(events, beatIndex, index);
     const updatedSequence = {
       id,
       tone,

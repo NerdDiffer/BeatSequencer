@@ -1,7 +1,7 @@
 import React from 'react';
 import classnames from 'classnames';
 
-const Beat = ({ event, handleClick }) => {
+const Beat = ({ event, handleClick, beatIndex }) => {
   const determineWidth = () => {
     if (Array.isArray(event) && event.length > 1) {
       // If used in combination with the style of `box-sizing: border-box`
@@ -17,7 +17,7 @@ const Beat = ({ event, handleClick }) => {
 
   const renderBeat = (beat, index) => {
     const beatStyle = classnames({ selected: beat === 1 }, 'beatBox');
-    const handleClickForIndex = handleClick.bind(null, index);
+    const handleClickForIndex = handleClick.bind(null, beatIndex, index);
 
     return (
       <div
