@@ -10,7 +10,12 @@
     "start": "npm run front-end & npm run back-end",
     "prelint": "curl -s https://raw.githubusercontent.com/NerdDiffer/pomander/colossalBubble/bin/install | bash",
     "lint": "eslint",
-    "test": "mocha --compilers js:babel-register --recursive"
+    "test": "mocha --compilers js:babel-register --recursive",
+    "prestart:prod": "npm install && webpack",
+    "start:prod": "node server/index.js"
+  },
+  "engines": {
+    "node": "6.4.0"
   },
   "repository": {
     "type": "git",
