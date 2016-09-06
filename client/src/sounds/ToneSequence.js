@@ -1,5 +1,11 @@
 import { Sequence } from 'tone';
 import beatDefs from './beatDefs';
+import TR808 from './TR808';
+import ToneSampler from './ToneSampler';
+
+const mapSound = soundDef => {
+  return beatDefs[soundDef] || TR808[soundDef];
+};
 
 const targetEvents = event => {
   if (Array.isArray(event)) {
@@ -27,11 +33,11 @@ const targetEvents = event => {
  * @param subdivision, {String}, subdivision between which events are placed.
  */
 const ToneSequence = ({ tone, soundDef, events, subdivision }) => {
-  const beatDef = beatDefs[soundDef];
+  const sound = mapSound(soundDef);
   const toneEvents = events.map(targetEvents);
 
   return new Sequence(time => {
-    beatDef.triggerAttackRelease(tone);
+    sound.triggerAttackRelease(tone);
   }, toneEvents, subdivision);
 };
 
