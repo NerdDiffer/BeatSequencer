@@ -1,5 +1,6 @@
 // seed data
 
+// use these for testing
 const beat1 = [[1, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]];
 const beat2 = [[0, 0, 0, 0], [1, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]];
 const beat3 = [[0, 0, 0, 0], [0, 0, 0, 0], [1, 0, 0, 0], [0, 0, 0, 0]];
@@ -11,8 +12,7 @@ export default [
     tone: '200',
     // soundDef: 'bell',
     soundDef: 'Cowbell',
-    // events: [[1, 0, 0, 0], [1, 0, 0, 1], [0, 0, 0, 0], [0, 0, 0, 0]],
-    events: beat1,
+    events: [[1, 0, 0, 0], [1, 0, 0, 1], [0, 0, 0, 0], [0, 0, 0, 0]],
     subdivision: '4n',
     mute: false
   },
@@ -21,8 +21,7 @@ export default [
     tone: '300',
     // soundDef: 'conga',
     soundDef: 'Clap',
-    // events: [[0, 0, 1, 1], [0, 0, 1, 1], [0, 0, 1, 1], [0, 0, 1, 1]],
-    events: beat2,
+    events: [[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [1, 0, 1, 1]],
     subdivision: '4n',
     mute: false
   },
@@ -31,8 +30,7 @@ export default [
     tone: 'Bb4',
     // soundDef: 'membrane',
     soundDef: 'BassDrum',
-    // events: [[0, 0, 0, 0], [1, 0, 0, 0], [0, 0, 0, 0], [1, 0, 0, 0]],
-    events: beat3,
+    events: [[1, 0, 0, 1], [1, 0, 0, 0], [1, 0, 0, 1], [1, 0, 0, 0]],
     subdivision: '4n',
     mute: false
   },
@@ -41,8 +39,7 @@ export default [
     tone: '200',
     // soundDef: 'metal',
     soundDef: 'SnareDrum',
-    // events: [[0, 0, 1, 0], [0, 0, 1, 0], [0, 0, 1, 0], [0, 0, 1, 0]],
-    events: beat4,
+    events: [[0, 0, 0, 0], [1, 0, 0, 0], [0, 0, 0, 0], [1, 0, 0, 0]],
     subdivision: '4n',
     mute: false
   }
