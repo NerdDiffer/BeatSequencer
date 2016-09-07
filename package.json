@@ -58,7 +58,6 @@
     "react-redux": "^4.4.5",
     "react-tap-event-plugin": "^1.0.0",
     "redux": "^3.5.2",
-    "redux-logger": "^2.6.1",
     "style-loader": "^0.13.1",
     "tone": "^0.7.1",
     "webpack": "^1.13.1"
