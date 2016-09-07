@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Transport } from 'tone';
+import { Transport, Buffer } from 'tone';
 import Sequence from './Sequence';
 import PlayStopButton from './PlayStopButton';
 import AddSequenceButton from './AddSequenceButton';
@@ -29,8 +29,12 @@ class BeatSequencer extends Component {
     actions.togglePlaying();
 
     if (Transport.state !== 'started') {
-      Transport.start();
+      Buffer.on('load', () => Transport.start());
     } else {
+      // Unregisters all previously-bound listeners to 'load' event on Buffer.
+      // Allows you to press invoke togglePlaying only once instead of having to
+      // press it several times.
+      Buffer.off('load');
       Transport.stop();
     }
   }
