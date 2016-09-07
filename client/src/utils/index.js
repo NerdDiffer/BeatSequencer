@@ -1,3 +1,6 @@
+// Path to sound file is relative to static dir you set up on server-side
+const pathToSoundFile = soundDef => `/dist/sounds/TR808/${soundDef}`;
+
 // Create a deep splice of a 2D array
 
 const deepCopy = (subArr, j) => {
@@ -21,4 +24,7 @@ const deepSplice = (events, i, j) => {
   ];
 };
 
-export { deepSplice };
+export {
+  deepSplice,
+  pathToSoundFile
+};

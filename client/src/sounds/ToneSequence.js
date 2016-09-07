@@ -2,15 +2,13 @@ import { Sequence } from 'tone';
 import beatDefs from './beatDefs';
 import TR808 from './TR808';
 import ToneSampler from './ToneSampler';
-
-const pathToSoundFile = soundDef => `/dist/sounds/TR808/${TR808[soundDef]}`;
+import { pathToSoundFile } from '../utils';
 
 const mapSound = soundDef => {
   if (beatDefs[soundDef]) {
     return beatDefs[soundDef];
   } else if (TR808[soundDef]) {
-    // Path to sound file is relative to static dir you set up on server-side
-    const soundUrl = pathToSoundFile(soundDef);
+    const soundUrl = pathToSoundFile(TR808[soundDef]);
     return ToneSampler(soundUrl);
   }
 };
