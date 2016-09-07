@@ -12,6 +12,15 @@ import initialSequences from '../data';
 // pass this function into a call to Array.prototype.reduce
 const nextId = (maxId, sequence) => Math.max(sequence.id, maxId);
 
+const defaultTones = {
+  // from beatDefs
+  bell: 200,
+  conga: 200,
+  membrane: 'Bb4',
+  metal: 200
+  // from TR808: they are all 0
+};
+
 const sequences = (state = initialSequences, action) => {
   switch (action.type) {
     case ADD_SEQUENCE: {
@@ -33,7 +42,8 @@ const sequences = (state = initialSequences, action) => {
         if (sequence.id !== action.sequence.id) {
           return sequence;
         } else {
-          const { tone, soundDef, events, subdivision, mute } = action.sequence;
+          const { soundDef, events, subdivision, mute } = action.sequence;
+          const tone = defaultTones[soundDef] || 0;
 
           return Object.assign(
             {},

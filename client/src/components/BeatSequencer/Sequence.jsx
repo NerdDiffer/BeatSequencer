@@ -42,11 +42,10 @@ class Sequence extends Component {
   }
 
   toggleBeat(beatIndex, index) {
-    const { actions, id, tone, soundDef, events, subdivision, mute } = this.props;
+    const { actions, id, soundDef, events, subdivision, mute } = this.props;
     const newEvents = deepSplice(events, beatIndex, index);
     const updatedSequence = {
       id,
-      tone,
       soundDef,
       events: newEvents,
       subdivision,
@@ -59,11 +58,10 @@ class Sequence extends Component {
   }
 
   toggleMute() {
-    const { actions, id, tone, soundDef, events, subdivision, mute } = this.props;
+    const { actions, id, soundDef, events, subdivision, mute } = this.props;
 
     const updatedSequence = {
       id,
-      tone,
       soundDef,
       events,
       subdivision,
@@ -87,9 +85,8 @@ class Sequence extends Component {
   }
 
   _setToneSequence() {
-    const { tone, soundDef, events, subdivision } = this.props;
+    const { soundDef, events, subdivision } = this.props;
     const sound = {
-      tone,
       soundDef,
       events,
       subdivision
@@ -105,17 +102,8 @@ class Sequence extends Component {
   editSoundDef(_event, _key, soundDef) {
     const { actions, id, events, subdivision, mute } = this.props;
 
-    let tone;
-
-    if (soundDef === 'membrane') {
-      tone = 'Bb4';
-    } else {
-      tone = 200;
-    }
-
     const updatedSequence = {
       id,
-      tone,
       soundDef,
       events,
       subdivision,
