@@ -7,21 +7,15 @@ import {
   CHANGE_BPM,
   TOGGLE_PLAYING
 } from '../actions/types';
-import initialSequences from '../data';
+import {
+  defaultTones,
+  defaultSequences
+} from '../data';
 
 // pass this function into a call to Array.prototype.reduce
 const nextId = (maxId, sequence) => Math.max(sequence.id, maxId);
 
-const defaultTones = {
-  // from beatDefs
-  bell: 200,
-  conga: 200,
-  membrane: 'Bb4',
-  metal: 200
-  // from TR808: they are all 0
-};
-
-const sequences = (state = initialSequences, action) => {
+const sequences = (state = defaultSequences, action) => {
   switch (action.type) {
     case ADD_SEQUENCE: {
       const newId = state.reduce(nextId, -1) + 1;

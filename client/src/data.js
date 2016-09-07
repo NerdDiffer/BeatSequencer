@@ -6,7 +6,16 @@ const beat2 = [[0, 0, 0, 0], [1, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]];
 const beat3 = [[0, 0, 0, 0], [0, 0, 0, 0], [1, 0, 0, 0], [0, 0, 0, 0]];
 const beat4 = [[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [1, 0, 0, 0]];
 
-export default [
+const defaultTones = {
+  // from beatDefs
+  bell: 200,
+  conga: 200,
+  membrane: 'Bb4',
+  metal: 200
+  // from TR808: they are all 0
+};
+
+const defaultSequences = [
   {
     id: 0,
     tone: '200',
@@ -44,3 +53,8 @@ export default [
     mute: false
   }
 ];
+
+export {
+  defaultTones,
+  defaultSequences
+}
