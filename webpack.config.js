@@ -1,6 +1,7 @@
 const webpack = require('webpack');
 const path = require('path');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 const SRC_DIR = path.join(__dirname, 'client', 'src');
 const DIST_DIR = path.join(__dirname, 'client', 'public', 'dist');
@@ -33,15 +34,17 @@ const config = {
         test: /\.jsx?$/,
         include: SRC_DIR,
         loader: 'babel'
-      },
-      {
-        test: /\.(wav|mp3)$/i,
-        loader: 'file?name=sounds/TR808/[name].[ext]'
-      },
+      }
     ]
   },
   plugins: [
-    new ExtractTextPlugin('styles.css')
+    new ExtractTextPlugin('styles.css'),
+    new CopyWebpackPlugin([
+      {
+        from: path.join(SRC_DIR, 'sounds', 'TR808'),
+        to: path.join(DIST_DIR, 'sounds', 'TR808')
+      }
+    ])
   ]
 };
 
