@@ -47,7 +47,7 @@ class BeatSequencer extends Component {
     const newSequence = {
       tone: 'Bb4',
       soundDef: 'membrane',
-      events: [1,1,1,1],
+      events: [[1, 0, 0, 0], [1, 0, 0, 0], [1, 0, 0, 0], [1, 0, 0, 0]],
       subdivision: '4n',
       mute: false
     };
