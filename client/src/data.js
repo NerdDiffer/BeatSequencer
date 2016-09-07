@@ -18,8 +18,7 @@ const defaultTones = {
 const defaultSequences = [
   {
     id: 0,
-    tone: '200',
-    // soundDef: 'bell',
+    tone: 0,
     soundDef: 'Cowbell',
     events: [[1, 0, 0, 0], [1, 0, 0, 1], [0, 0, 0, 0], [0, 0, 0, 0]],
     subdivision: '4n',
@@ -27,8 +26,7 @@ const defaultSequences = [
   },
   {
     id: 1,
-    tone: '300',
-    // soundDef: 'conga',
+    tone: 0,
     soundDef: 'Clap',
     events: [[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [1, 0, 1, 1]],
     subdivision: '4n',
@@ -36,8 +34,7 @@ const defaultSequences = [
   },
   {
     id: 2,
-    tone: 'Bb4',
-    // soundDef: 'membrane',
+    tone: 0,
     soundDef: 'BassDrum',
     events: [[1, 0, 0, 1], [1, 0, 0, 0], [1, 0, 0, 1], [1, 0, 0, 0]],
     subdivision: '4n',
@@ -45,8 +42,7 @@ const defaultSequences = [
   },
   {
     id: 3,
-    tone: '200',
-    // soundDef: 'metal',
+    tone: 0,
     soundDef: 'SnareDrum',
     events: [[0, 0, 0, 0], [1, 0, 0, 0], [0, 0, 0, 0], [1, 0, 0, 0]],
     subdivision: '4n',
