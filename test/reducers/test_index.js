@@ -47,7 +47,7 @@ describe('Beat Sequencer Reducer', () => {
       testSequences = testSequences.concat(testSequence2);
       var newSequence1 = {
         id: 1,
-        tone: 'foo',
+        tone: 0,
         soundDef: 'bar',
         events: [1,1,1,1],
         subdivision: '8n',
