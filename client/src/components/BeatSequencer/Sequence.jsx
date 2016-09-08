@@ -85,11 +85,12 @@ class Sequence extends Component {
   }
 
   _setToneSequence() {
-    const { soundDef, events, subdivision } = this.props;
+    const { soundDef, events, subdivision, mute } = this.props;
     const sound = {
       soundDef,
       events,
-      subdivision
+      subdivision,
+      mute
     };
 
     if (this._toneSequence) {

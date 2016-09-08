@@ -38,13 +38,19 @@ const targetEvents = event => {
  * @param events, {Array} sequence of events to play
  * @param subdivision, {String}, subdivision between which events are placed.
  */
-const ToneSequence = ({ tone, soundDef, events, subdivision }) => {
+const ToneSequence = ({ tone, soundDef, events, subdivision, mute }) => {
   const sound = mapSound(soundDef);
   const toneEvents = events.map(targetEvents);
 
-  return new Sequence(time => {
+  const sequence = new Sequence(time => {
     sound.triggerAttackRelease(tone);
   }, toneEvents, subdivision);
+
+  if (mute) {
+    sequence.mute = true;
+  }
+
+  return sequence;
 };
 
 export default ToneSequence;
