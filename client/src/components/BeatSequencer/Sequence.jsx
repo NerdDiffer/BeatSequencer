@@ -100,7 +100,7 @@ class Sequence extends Component {
     this._toneSequence = new ToneSequence(sound);
   }
 
-  editSoundDef(soundDef) {
+  editSoundDef(_event, _key, soundDef) {
     const { actions, id, events, subdivision, mute } = this.props;
 
     const updatedSequence = {
@@ -127,6 +127,7 @@ class Sequence extends Component {
             handleClick={this.toggleMute}
           />
           <EditSequence
+            soundDef={this.props.soundDef}
             anchorEl={this.state.anchorEl}
             showPopover={this.state.showPopover}
             handleOpen={this.handleEdit}

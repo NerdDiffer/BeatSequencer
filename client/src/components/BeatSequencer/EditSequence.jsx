@@ -1,61 +1,46 @@
 import React, { Component } from 'react';
-import IconButton from 'material-ui/IconButton';
-import IconMenu from 'material-ui/IconMenu';
+import DropDownMenu from 'material-ui/DropDownMenu';
 import MenuItem from 'material-ui/MenuItem';
-import ArrowDropRight from 'material-ui/svg-icons/navigation-arrow-drop-right';
 
 class EditSequence extends Component {
   renderKeys(setName) {
     const soundSet = this.props.soundSets[setName];
-    const innerDivStyle = {
-      width: '150px'
-    };
 
     return soundSet.map((set, index) => (
       <MenuItem
         value={set}
         primaryText={set}
         key={`${set}-${index}`}
-        onTouchTap={() => this.props.handleSelect(set)}
-        innerDivStyle={innerDivStyle}
       />
     ));
   }
 
-  renderMainIcon() {
-    return (
-      <IconButton iconClassName='material-icons'>
-        create
-      </IconButton>
-    );
-  }
-
-  arrowDropRight() {
-    const style = {
-      right: '0'
+  render() {
+    const styles = {
+      dropDownMenu: {
+        width: '55%'
+      },
+      icon: {
+        display: 'none'
+      },
+      menu: {
+        width: '150px'
+      }
     };
 
     return (
-      <ArrowDropRight
-        style={style}
-      />
-    );
-  }
-
-  render() {
-    return (
-      <IconMenu
-        iconButtonElement={this.renderMainIcon()}
+      <DropDownMenu
         className='editSequence pickSound'
-        anchorOrigin={{horizontal: 'right', vertical: 'bottom'}}
-        targetOrigin={{horizontal: 'left', vertical: 'center'}}
+        value={this.props.soundDef}
+        onChange={this.props.handleSelect}
+        autoWidth={false}
+        maxHeight={300}
+        style={styles.dropDownMenu}
+        iconStyle={styles.icon}
+        menuStyle={styles.menu}
       >
-        <MenuItem
-          primaryText='TR808'
-          rightIcon={this.arrowDropRight()}
-          menuItems={this.renderKeys('TR808')}
-        />
-      </IconMenu>
+        {this.renderKeys('TR808')}
+      </DropDownMenu>
     );
   }
 }
