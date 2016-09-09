@@ -8,8 +8,8 @@ import {
   TOGGLE_PLAYING
 } from '../actions/types';
 import {
-  defaultTones,
-  defaultSequences
+  defaultSequences,
+  defaultSoundKeys
 } from '../data';
 
 // pass this function into a call to Array.prototype.reduce
@@ -37,7 +37,7 @@ const sequences = (state = defaultSequences, action) => {
           return sequence;
         } else {
           const { soundDef, events, subdivision, mute } = action.sequence;
-          const tone = defaultTones[soundDef] || 0;
+          const tone = 0;
 
           return Object.assign(
             {},
@@ -72,10 +72,15 @@ const playing = (state = false, action) => {
   }
 };
 
+const soundSets = (state = defaultSoundKeys, action) => {
+  return state;
+};
+
 export default combineReducers({
   sequences,
   bpm,
-  playing
+  playing,
+  soundSets
 });
 
 export { sequences, bpm, playing };

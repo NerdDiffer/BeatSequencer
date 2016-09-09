@@ -1,13 +1,12 @@
 import { Sequence } from 'tone';
-import beatDefs from './beatDefs';
-import TR808 from './TR808';
+import soundDefs from '../';
+import { pathToSoundFile } from '../../utils';
 import ToneSampler from './ToneSampler';
-import { pathToSoundFile } from '../utils';
+
+const { TR808 } = soundDefs;
 
 const mapSound = soundDef => {
-  if (beatDefs[soundDef]) {
-    return beatDefs[soundDef];
-  } else if (TR808[soundDef]) {
+  if (TR808[soundDef]) {
     const soundUrl = pathToSoundFile(TR808[soundDef]);
     return ToneSampler(soundUrl);
   }

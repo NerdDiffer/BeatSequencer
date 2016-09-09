@@ -1,19 +1,11 @@
 // seed data
+import sounds from './sounds';
 
 // use these for testing
 const beat1 = [[1, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]];
 const beat2 = [[0, 0, 0, 0], [1, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]];
 const beat3 = [[0, 0, 0, 0], [0, 0, 0, 0], [1, 0, 0, 0], [0, 0, 0, 0]];
 const beat4 = [[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [1, 0, 0, 0]];
-
-const defaultTones = {
-  // from beatDefs
-  bell: 200,
-  conga: 200,
-  membrane: 'Bb4',
-  metal: 200
-  // from TR808: they are all 0
-};
 
 const defaultSequences = [
   {
@@ -50,7 +42,21 @@ const defaultSequences = [
   }
 ];
 
+const defaultSoundKeys = (() => {
+  const registry = {};
+
+  for (let set in sounds) {
+    registry[set] = [];
+
+    for (let sound in sounds[set]) {
+      registry[set].push(sound);
+    }
+  }
+
+  return registry;
+})();
+
 export {
-  defaultTones,
-  defaultSequences
+  defaultSequences,
+  defaultSoundKeys
 }

@@ -1,41 +1,64 @@
-import React from 'react';
-import Popover from 'material-ui/Popover';
+import React, { Component } from 'react';
 import IconButton from 'material-ui/IconButton';
-import SelectField from 'material-ui/SelectField';
+import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
+import ArrowDropRight from 'material-ui/svg-icons/navigation-arrow-drop-right';
 
-// TODO: pass in MenuItems from parent component
-const EditSequence = ({ anchorEl, showPopover, handleOpen, handleClose, handleSelect }) => (
-  <div className="editSequence">
-    <IconButton
-      iconClassName="material-icons"
-      onTouchTap={handleOpen}
-    >
-      create
-    </IconButton>
-    <Popover
-      className="pickSound"
-      open={showPopover}
-      anchorEl={anchorEl}
-      anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
-      targetOrigin={{ horizontal: 'left', vertical: 'center' }}
-      onRequestClose={handleClose}
-      canAutoPosition={false}
-    >
-      <SelectField
-        className="pickSound"
-        floatingLabelText="Pick a sound"
-        floatingLabelFixed
-        onChange={handleSelect}
+class EditSequence extends Component {
+  renderKeys(setName) {
+    const soundSet = this.props.soundSets[setName];
+    const innerDivStyle = {
+      width: '150px'
+    };
+
+    return soundSet.map((set, index) => (
+      <MenuItem
+        value={set}
+        primaryText={set}
+        key={`${set}-${index}`}
+        onTouchTap={() => this.props.handleSelect(set)}
+        innerDivStyle={innerDivStyle}
+      />
+    ));
+  }
+
+  renderMainIcon() {
+    return (
+      <IconButton iconClassName='material-icons'>
+        create
+      </IconButton>
+    );
+  }
+
+  arrowDropRight() {
+    const style = {
+      right: '0'
+    };
+
+    return (
+      <ArrowDropRight
+        style={style}
+      />
+    );
+  }
+
+  render() {
+    return (
+      <IconMenu
+        iconButtonElement={this.renderMainIcon()}
+        className='editSequence pickSound'
+        anchorOrigin={{horizontal: 'right', vertical: 'bottom'}}
+        targetOrigin={{horizontal: 'left', vertical: 'center'}}
       >
-        <MenuItem value="bell" primaryText="Bell" />
-        <MenuItem value="conga" primaryText="Conga" />
-        <MenuItem value="membrane" primaryText="Membrane" />
-        <MenuItem value="metal" primaryText="Metal" />
-      </SelectField>
-    </Popover>
-  </div>
-);
+        <MenuItem
+          primaryText='TR808'
+          rightIcon={this.arrowDropRight()}
+          menuItems={this.renderKeys('TR808')}
+        />
+      </IconMenu>
+    );
+  }
+}
 
 EditSequence.propTypes = {
   handleOpen: React.PropTypes.func.isRequired,

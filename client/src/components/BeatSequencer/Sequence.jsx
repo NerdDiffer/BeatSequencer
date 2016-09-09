@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import Row from './Row';
 import MuteButton from './MuteButton';
-import EditSequence from './EditSequence';
+import EditSequence from '../../containers/EditSequence';
 import RemoveSequenceButton from './RemoveSequenceButton';
-import ToneSequence from '../../sounds/ToneSequence';
+import ToneSequence from '../../sounds/ToneJS/ToneSequence';
 import { deepSplice } from '../../utils';
 
 /**
@@ -100,7 +100,7 @@ class Sequence extends Component {
     this._toneSequence = new ToneSequence(sound);
   }
 
-  editSoundDef(_event, _key, soundDef) {
+  editSoundDef(soundDef) {
     const { actions, id, events, subdivision, mute } = this.props;
 
     const updatedSequence = {
