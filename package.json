@@ -11,7 +11,9 @@
     "lint": "eslint",
     "test": "mocha --compilers js:babel-register --recursive",
     "prestart:prod": "npm install && webpack",
-    "start:prod": "node server/index.js"
+    "start:prod": "node server/index.js",
+    "sequelize": "sequelize",
+    "db:connect": "psql -d beat_sequencer_development -U beat_sequencer"
   },
   "engines": {
     "node": "6.4.0"
