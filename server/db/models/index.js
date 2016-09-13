@@ -9,11 +9,13 @@ const env          = process.env.NODE_ENV || 'development';
 const pathToConfig = path.join(__dirname, '..', 'config.json');
 const config       = require(pathToConfig)[env];
 
+let sequelize;
+
 if (config.use_env_variable) {
-  const sequelize = new Sequelize(process.env[config.use_env_variable]);
+  sequelize = new Sequelize(process.env[config.use_env_variable]);
 } else {
   const { database, username, password } = config;
-  const sequelize = new Sequelize(database, username, password, config);
+  sequelize = new Sequelize(database, username, password, config);
 }
 
 /* Build db object */
