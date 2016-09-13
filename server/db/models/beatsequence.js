@@ -6,8 +6,8 @@ module.exports = function(sequelize, DataTypes) {
     classMethods: {
       associate: function(models) {
         const { BeatSequence, Beat, Sequence } = models;
-        BeatSequence.belongsTo(Sequence);
-        BeatSequence.belongsTo(Beat);
+        BeatSequence.belongsTo(Sequence, { foreignKey: 'sequence_id' });
+        BeatSequence.belongsTo(Beat, { foreignKey: 'beat_id' });
       },
       tableName: 'beat_sequences'
     }

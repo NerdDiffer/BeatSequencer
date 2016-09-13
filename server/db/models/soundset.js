@@ -6,7 +6,7 @@ module.exports = function(sequelize, DataTypes) {
     classMethods: {
       associate: function(models) {
         const { Sample, SoundSet } = models;
-        SoundSet.hasMany(Sample)
+        SoundSet.hasMany(Sample, { foreignKey: 'sound_set_id' });
       },
       tableName: 'sound_sets'
     }
