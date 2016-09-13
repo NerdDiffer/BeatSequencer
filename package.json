@@ -12,7 +12,6 @@
     "test": "mocha --compilers js:babel-register --recursive",
     "prestart:prod": "npm install && webpack",
     "start:prod": "node server/index.js",
-    "sequelize": "sequelize",
     "db:connect": "psql -d beat_sequencer_development -U beat_sequencer"
   },
   "engines": {
@@ -63,7 +62,6 @@
     "react-tap-event-plugin": "^1.0.0",
     "redux": "^3.5.2",
     "sequelize": "^3.24.3",
-    "sequelize-cli": "^2.4.0",
     "style-loader": "^0.13.1",
     "tone": "^0.7.1",
     "uuid": "^2.0.3",
