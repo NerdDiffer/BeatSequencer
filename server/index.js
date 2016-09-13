@@ -2,6 +2,7 @@ const express = require('express');
 const logger = require('morgan');
 const bodyParser = require('body-parser');
 const path = require('path');
+const routes = require('./routes');
 
 const app = express();
 
@@ -16,9 +17,7 @@ app.use(express.static(pathToStaticDir));
 
 /* Routes */
 
-app.get('/', function(req, res) {
-  res.status(200).send();
-});
+app.use('/api', routes)
 
 /* Initialize */
 
