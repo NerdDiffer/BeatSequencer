@@ -1,0 +1,23 @@
+{
+  "development": {
+    "username": "beat_sequencer",
+    "password": null,
+    "database": "beat_sequencer_development",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
+  },
+  "test": {
+    "username": "beat_sequencer",
+    "password": null,
+    "database": "beat_sequencer_test",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
+  },
+  "production": {
+    "username": "beat_sequencer",
+    "password": null,
+    "database": "beat_sequencer_production",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
+  }
+}
