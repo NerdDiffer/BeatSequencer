@@ -5,7 +5,10 @@ module.exports = function(sequelize, DataTypes) {
   }, {
     classMethods: {
       associate: function(models) {
-        // associations can be defined here
+        const { User, Beat, Sample, BeatSequence } = models;
+        Beat.belongsTo(User);
+        Beat.belongsTo(Sample);
+        Beat.hasMany(BeatSequence);
       },
       tableName: 'beats'
     }
