@@ -8,7 +8,6 @@
     "front-end": "webpack --watch",
     "back-end": "node server/index.js",
     "start": "npm run front-end & npm run back-end",
-    "prelint": "curl -s https://raw.githubusercontent.com/NerdDiffer/pomander/colossalBubble/bin/install | bash",
     "lint": "eslint",
     "test": "mocha --compilers js:babel-register --recursive",
     "prestart:prod": "npm install && webpack",
