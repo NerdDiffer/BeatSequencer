@@ -2,7 +2,7 @@ import Tone, { Transport } from 'tone';
 import ToneWrapper from './ToneWrapper';
 
 const setTransportBPM = (bpm = 120) => {
-  Transport.bpm.value = bpm;
+  return Transport.bpm.value = bpm;
 };
 
 /**

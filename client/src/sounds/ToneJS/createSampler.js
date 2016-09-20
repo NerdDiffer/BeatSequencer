@@ -7,7 +7,7 @@ const ToneSampler = soundUrl => {
     // Anything you want to happen when the Sampler object has finished loading
     // from the `soundUrl`.
     // console.log(soundUrl);
-  }).toMaster();
+  });
 };
 
 const { TR808 } = soundDefs;
@@ -15,7 +15,7 @@ const { TR808 } = soundDefs;
 const createSampler = soundDef => {
   if (TR808[soundDef]) {
     const soundUrl = pathToSoundFile(TR808[soundDef]);
-    return ToneSampler(soundUrl);
+    return ToneSampler(soundUrl).toMaster();
   }
 };
 

@@ -25,10 +25,7 @@ const buildSamplers = instrumentData => {
   forEachInObj(instrumentData, data => {
     const { id, soundDef } = data;
     const sampler = createSampler(soundDef);
-
-    if (sampler) {
-      samplers[id] = sampler;
-    }
+    samplers[id] = sampler;
   });
 
   return samplers;
