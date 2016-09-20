@@ -9,7 +9,7 @@
     "back-end": "node server/index.js",
     "start": "npm run front-end & npm run back-end",
     "lint": "eslint",
-    "test": "mocha --compilers js:babel-register --recursive",
+    "test": "mocha",
     "prestart:prod": "npm install && webpack",
     "start:prod": "node server/index.js"
   },
