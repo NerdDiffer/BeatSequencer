@@ -7,7 +7,7 @@ const SRC_DIR = path.join(__dirname, 'client', 'src');
 const DIST_DIR = path.join(__dirname, 'client', 'public', 'dist');
 
 const config = {
-  devtool: 'inline-sourcemap',
+  devtool: 'inline-source-map',
   resolve: {
     root: __dirname,
     modulesDirectories: ['node_modules'],
@@ -45,7 +45,13 @@ const config = {
         to: path.join(DIST_DIR, 'sounds', 'TR808')
       }
     ])
-  ]
+  ],
+  // for react 15: https://github.com/airbnb/enzyme/blob/master/docs/guides/webpack.md
+  externals: {
+    'react/addons': true,
+    'react/lib/ExecutionEnvironment': true,
+    'react/lib/ReactContext': true
+  }
 };
 
 module.exports = config;

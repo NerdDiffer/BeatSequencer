@@ -1,2 +1,2 @@
 --compilers js:babel-register
---recursive
+test/{reducers,utils}/test_*.js
