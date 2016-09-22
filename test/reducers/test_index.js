@@ -25,7 +25,7 @@ describe('Beat Sequencer Reducer', () => {
       testSequences = [testSequence1];
     });
 
-    it('should handle ADD_SEQUENCE action', () => {
+    xit('should handle ADD_SEQUENCE action', () => {
       var action = {
         type: ADD_SEQUENCE,
         sequence: testSequence2

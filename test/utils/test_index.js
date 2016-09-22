@@ -1,7 +1,7 @@
 import expect from 'expect'
 import { deepSplice } from '../../client/src/utils';
 
-describe('utils', () => {
+xdescribe('utils', () => {
   describe('deepSplice', () => {
     const testArr = [[1, 1, 0, 0], [1, 1, 0, 0], [1, 1, 0, 0], [1, 1, 0, 0]];
 
