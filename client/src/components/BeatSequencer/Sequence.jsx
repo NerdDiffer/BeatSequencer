@@ -3,8 +3,11 @@ import Row from './Row';
 import MuteButton from './MuteButton';
 import EditSequence from '../../containers/EditSequence';
 import RemoveSequenceButton from './RemoveSequenceButton';
-import ToneSequence from '../../sounds/ToneJS/ToneSequence';
 import { deepSplice } from '../../utils';
+
+const mergeSequence = (template, newStuff) => {
+  return Object.assign(template, newStuff);
+};
 
 /**
  * - toggles active sounds on a subdivision
@@ -27,48 +30,26 @@ class Sequence extends Component {
     this.handleEdit = this.handleEdit.bind(this);
     this.closePopover = this.closePopover.bind(this);
     this.editSoundDef = this.editSoundDef.bind(this);
-    this._setToneSequence = this._setToneSequence.bind(this);
   }
 
-  componentWillReceiveProps(nextProps) {
-    this._setToneSequence();
-    const willBePlaying = nextProps.isPlaying;
-
-    if (willBePlaying) {
-      this._toneSequence.start();
-    } else {
-      this._toneSequence.stop();
-    }
-  }
-
-  toggleBeat(beatIndex, index) {
+  toggleBeat(index) {
     const { actions, id, soundDef, events, subdivision, mute } = this.props;
-    const newEvents = deepSplice(events, beatIndex, index);
-    const updatedSequence = {
-      id,
-      soundDef,
-      events: newEvents,
-      subdivision,
-      mute
-    };
-
+    const newEvents = deepSplice(events, index);
+    const updatedSequence = mergeSequence({
+      id, soundDef, subdivision, mute
+    }, { events: newEvents });
     actions.updateSequence(updatedSequence);
-
-    this._setToneSequence();
+    this.props.toggleBeat(index, id);
   }
 
   toggleMute() {
     const { actions, id, soundDef, events, subdivision, mute } = this.props;
-
-    const updatedSequence = {
-      id,
-      soundDef,
-      events,
-      subdivision,
-      mute: !mute
-    };
+    const updatedSequence = mergeSequence({
+      id, soundDef, events, subdivision
+    }, { mute: !mute});
 
     actions.updateSequence(updatedSequence);
+    this.props.toggleMute(id);
   }
 
   handleEdit(event) {
@@ -84,35 +65,15 @@ class Sequence extends Component {
     this.setState({ showPopover: false });
   }
 
-  _setToneSequence() {
-    const { soundDef, events, subdivision, mute } = this.props;
-    const sound = {
-      soundDef,
-      events,
-      subdivision,
-      mute
-    };
-
-    if (this._toneSequence) {
-      this._toneSequence.dispose();
-    }
-
-    this._toneSequence = new ToneSequence(sound);
-  }
-
   editSoundDef(_event, _key, soundDef) {
     const { actions, id, events, subdivision, mute } = this.props;
 
-    const updatedSequence = {
-      id,
-      soundDef,
-      events,
-      subdivision,
-      mute
-    };
+    const updatedSequence = mergeSequence({
+      id, events, subdivision, mute
+    }, { soundDef });
 
     actions.updateSequence(updatedSequence);
-    this._setToneSequence();
+    this.props.editSoundDef(soundDef, id);
   }
 
   render() {

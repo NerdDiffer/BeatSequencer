@@ -6,10 +6,9 @@ import {
   TOGGLE_PLAYING
 } from './types';
 
-export const addSequence = sequence => (
+export const addSequence = () => (
   {
-    type: ADD_SEQUENCE,
-    sequence
+    type: ADD_SEQUENCE
   }
 );
 

@@ -13,9 +13,8 @@ const deepCopy = (subArr, j) => {
   ];
 };
 
-const deepSplice = (events, i, j) => {
-  const subArr = events[i];
-  const newValue = deepCopy(subArr, j);
+const deepSplice = (events, i) => {
+  const newValue = events[i] === 0 ? 1 : 0;
 
   return [
     ...events.slice(0, i),
@@ -24,7 +23,32 @@ const deepSplice = (events, i, j) => {
   ];
 };
 
+// flatten a 2D array into a 1D array
+const flatten = arr => {
+  let result = [];
+  let i = 0;
+
+  while (i < arr.length) {
+    result = result.concat(arr[i]);
+    i += 1;
+  }
+
+  return result;
+};
+
+// return copy of matrix so that row & column values are switched.
+// props to: `http://stackoverflow.com/a/17428705/2908123`
+const transpose = matrix => {
+  return matrix[0].map((col, ind) => {
+    return matrix.map((row) => {
+      return row[ind];
+    });
+  });
+};
+
 export {
   deepSplice,
-  pathToSoundFile
+  pathToSoundFile,
+  flatten,
+  transpose
 };

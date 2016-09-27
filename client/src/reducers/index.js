@@ -9,7 +9,8 @@ import {
 } from '../actions/types';
 import {
   defaultSequences,
-  defaultSoundKeys
+  defaultSoundKeys,
+  defaultNewSequence
 } from '../data';
 
 // pass this function into a call to Array.prototype.reduce
@@ -20,7 +21,7 @@ const sequences = (state = defaultSequences, action) => {
     case ADD_SEQUENCE: {
       const newId = state.reduce(nextId, -1) + 1;
       const newSequence = Object.assign(
-        action.sequence,
+        defaultNewSequence,
         { id: newId }
       );
 

@@ -3,15 +3,17 @@ import classnames from 'classnames';
 
 const Beat = ({ event, handleClick, beatIndex }) => {
   const determineWidth = () => {
+    let width;
     if (Array.isArray(event) && event.length > 1) {
       // If used in combination with the style of `box-sizing: border-box`
       // then, this can *barely* fit into the space without overflowing.
       // Note, the `box-sizing` CSS setting mentioned above will *not* take
       // the width of the border into account. That's why there is a minus 1.
-      const width = Math.floor(100 / event.length) - 1;
+      width = Math.floor(100 / event.length) - 1;
       return { width: width + '%' }
     } else {
-      return { width: '100%' };
+      width = Math.floor(100 / 16);
+      return { width: width + '%' };
     }
   };
 
@@ -24,7 +26,6 @@ const Beat = ({ event, handleClick, beatIndex }) => {
         className={beatStyle}
         key={index}
         onClick={handleClickForIndex}
-        style={determineWidth()}
       />
     );
   };
@@ -34,7 +35,7 @@ const Beat = ({ event, handleClick, beatIndex }) => {
   };
 
   return (
-    <div className='beat'>
+    <div className='beat' style={determineWidth()}>
       {Array.isArray(event) ? arrOfBeats(event) : renderBeat(event)}
     </div>
   );
