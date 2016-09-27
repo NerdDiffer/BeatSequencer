@@ -12,17 +12,15 @@ import {
   defaultSoundKeys,
   defaultNewSequence
 } from '../data';
-
-// pass this function into a call to Array.prototype.reduce
-const nextId = (maxId, sequence) => Math.max(sequence.id, maxId);
+import { generateId } from '../utils';
 
 const sequences = (state = defaultSequences, action) => {
   switch (action.type) {
     case ADD_SEQUENCE: {
-      const newId = state.reduce(nextId, -1) + 1;
       const newSequence = Object.assign(
+        {},
         defaultNewSequence,
-        { id: newId }
+        { id: generateId() }
       );
 
       return [

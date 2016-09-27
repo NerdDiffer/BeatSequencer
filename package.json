@@ -50,6 +50,8 @@
     "extract-text-webpack-plugin": "^1.0.1",
     "less": "^2.7.1",
     "less-loader": "^2.2.3",
+    "lodash.clonedeep": "^4.5.0",
+    "lodash.isempty": "^4.4.0",
     "material-ui": "^0.15.4",
     "morgan": "^1.7.0",
     "react": "^15.3.0",
@@ -59,6 +61,7 @@
     "redux": "^3.5.2",
     "style-loader": "^0.13.1",
     "tone": "^0.7.1",
+    "uuid": "^2.0.3",
     "webpack": "^1.13.1"
   }
 }

@@ -1,14 +1,31 @@
 import React, { Component } from 'react';
-import { Transport, Buffer } from 'tone';
 import Sequence from './Sequence';
 import PlayStopButton from './PlayStopButton';
 import AddSequenceButton from './AddSequenceButton';
 import TempoSlider from './TempoSlider';
-import {
-  setTransportBPM,
-  createSampler,
-  init as initTone
-} from '../../sounds/ToneJS';
+import initTone, { setTransportBPM, exposeTone } from '../../sounds/ToneJS';
+import { forEachInObj } from '../../utils';
+
+/**
+ * Build a collection of new sequences by comparing the ids of the current
+ * sequences against ids in collection of next sequences.
+ */
+const idNewSequences = (currentSequences, nextSequences) => {
+  const currentIds = currentSequences.reduce((collection, sequence) => {
+    const key = sequence.id;
+    collection[key] = true;
+    return collection;
+  }, {});
+
+  return nextSequences.reduce((collection, sequence) => {
+    const id = sequence.id;
+    // if the id is not present in list of currently active sequences...
+    if (!currentIds.hasOwnProperty(id)) {
+      collection[id] = sequence;
+    }
+    return collection;
+  }, {});
+};
 
 /**
  * logic of:
@@ -29,33 +46,17 @@ class BeatSequencer extends Component {
     this.onMuteToggle = this.onMuteToggle.bind(this);
 
     // all audio-related things start here
-    this._tone = {};
-    initTone(this._tone, this.props);
+    this._tone = initTone(this.props);
+    exposeTone(this._tone);
   }
 
   componentWillReceiveProps(nextProps) {
-    const currentSequences = this.props.sequences;
     const nextSequences = nextProps.sequences;
+    const nextLen = nextSequences.length
 
-    const lastSequence = currentSequences[currentSequences.length - 1];
-    const newestSequence = nextSequences[nextSequences.length - 1];
-
-    if (lastSequence.id !== newestSequence.id) {
-      const { soundDef, events } = newestSequence;
-      /**
-       * Update properties on `this._tone`
-       * - add the new sampler to `_tone.samplers`
-       * - add beats of the new sampler to `_tone.beatMatrix`
-       * - add data `_tone.instrumentData` so it can be read from the sequence
-       */
-      const sampler = createSampler(soundDef);
-      this._tone.samplers.push(sampler);
-
-      events.forEach((val, ind) => {
-        this._tone.beatMatrix[ind].push(val);
-      });
-
-      this._tone.instrumentData.push(newestSequence);
+    if (nextLen > 0) {
+      const newSequences = idNewSequences(this.props.sequences, nextSequences);
+      forEachInObj(newSequences, sequence => this._tone.addSampler(sequence));
     }
   }
 
@@ -63,10 +64,13 @@ class BeatSequencer extends Component {
     const { actions } = this.props;
     actions.togglePlaying();
 
-    if (!this.props.isPlaying) {
-      this._tone.sequence.start();
+    const isPlaying = this.props.isPlaying;
+    // console.log('before toggle, is it playing?', isPlaying);
+
+    if (!isPlaying) {
+      this._tone.start();
     } else {
-      this._tone.sequence.stop();
+      this._tone.stop();
     }
   }
 
@@ -84,54 +88,20 @@ class BeatSequencer extends Component {
   removeSequence(sequenceId) {
     const { actions } = this.props;
     // Inside of ToneJS, clean up lingering references to this Sampler object
-    this._tone.samplers[sequenceId].dispose();
-    this._tone.samplers[sequenceId] = null;
+    this._tone.removeSampler(sequenceId);
     actions.removeSequence({ id: sequenceId });
-    // TODO:
-    // - might be a better idea to remove it from `_tone.samplers` instead
-    //   of setting it to `null`
-    // - remove beats of the sampler from `_tone.beatMatrix`
-    // - remove reference from `_tone.instrumentData`
   }
 
-  /**
-   * Modify the internal `beatMatrix` property by grabbing the location of beat
-   * and the sample which requests a change. Toggle it.
-   */
   onBeatToggle(beatIndex, sampleIndex) {
-    const currentState = this._tone.beatMatrix[beatIndex][sampleIndex];
-    const newState = currentState === 1 ? null : 1;
-    this._tone.beatMatrix[beatIndex][sampleIndex] = newState;
+    this._tone.updateBeatMatrix(beatIndex, sampleIndex);
   }
 
-  /**
-   * Modify the internal `samplers` property, by replacing the
-   * currently-selected sampler with a new instance. The reason for replacing
-   * the sampler instance is that it is marked as 'read-only'. ToneJS won't let
-   * you edit it. So overwrite it instead.
-   */
   onEditSoundDef(soundDef, id) {
-    const currentSampler = this._tone.samplers[id];
-    const replacementSampler = createSampler(soundDef);
-
-    // Inside of ToneJS, you *might* need to remove lingering references to
-    // the old sampler. The `dispose` method might work. Though, am having
-    // problem when invoking it, says "cannot set playbackRate of null".
-    // It does not appear to be necessary to dispose of the old sample anyways.
-    // Though, have not tested this with a large number of active samples.
-    // this.samplers[id].dispose();
-    Buffer.on('load', () => {
-      this._tone.samplers[id] = replacementSampler;
-    })
+    this._tone.replaceSampler(soundDef, id);
   }
 
-  /**
-   * Modify the internal `samplers` property, by toggling the `mute` property
-   * on the selected sampler
-   */
   onMuteToggle(id) {
-    const sampler = this._tone.samplers[id];
-    sampler.player.mute = !sampler.player.mute;
+    this._tone.muteSampler(id);
   }
 
   render() {
