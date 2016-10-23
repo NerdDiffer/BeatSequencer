@@ -7,6 +7,8 @@ export const mapSequencesById = sequences => {
 
   const collect = (collection, sequence) => {
     const { id } = sequence;
+    // TODO: would it be worth it to remove the `id` property from `sequence`
+    // before assigning it to `collection`?
     collection[id] = sequence;
     return collection;
   };
