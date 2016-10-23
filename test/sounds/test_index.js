@@ -1,59 +1,71 @@
-import mock from 'mock-require';
-import expect from 'expect';
-const Tone = {
-  Sampler: function() { },
-  Sequence: function() { },
-  Transport: { bpm: { value: 120 } }
-};
-mock('tone', Tone);
+// Having trouble getting tests to work with 'import' keyword.
+// TODO: configure karma + webpack to allow it.
 
-// Synchronously load anything that needs to use 'tone' library because
-// using 'import' (asynchronous) messes up the mocking config.
-const ToneSampler = require('../../client/src/sounds/ToneJS/ToneSampler.js');
+const expect = require('expect');
+const Tone = require('tone');
+
 const toneInterface = require('../../client/src/sounds/ToneJS');
-import sounds from '../../client/src/sounds';
+const ToneWrapper = require('../../client/src/sounds/ToneJS/ToneWrapper').default;
 
-const { setTransportBPM, createSampler, init } = toneInterface;
+const initTone = toneInterface.default;
+const { setTransportBPM, exposeTone } = toneInterface;
 
-describe('ToneJS wrapper interface', () => {
+describe('Tone index', () => {
+  describe('initTone', () => {
+    const bpm = 100;
+
+    it('returns an instance of ToneWrapper', () => {
+      const instance = initTone({ sequences: [] });
+      const actual = instance.constructor;
+      expect(actual).toBe(ToneWrapper);
+    });
+
+    it('calls setTransportBPM', () => {
+      const spy_initTone = expect.createSpy(initTone);
+      const spy_setTransportBPM = expect.createSpy(setTransportBPM);
+      spy_initTone.andCall(spy_setTransportBPM);
+
+      spy_initTone({ sequences: [], bpm });
+
+      expect(spy_setTransportBPM).toHaveBeenCalled();
+
+      expect.restoreSpies();
+    });
+
+    it('calls Transport.start', () => {
+      const spy_initTone = expect.createSpy(initTone);
+      const spy_TransportStart = expect.createSpy(Tone.Transport.start);
+      spy_initTone.andCall(spy_TransportStart);
+
+      spy_initTone({ sequences: [], bpm });
+
+      expect(spy_TransportStart).toHaveBeenCalled();
+
+      expect.restoreSpies();
+    });
+  });
+
   describe('setTransportBPM', () => {
     it('sets bpm.value on Tone.Transport', () => {
-      const actual = setTransportBPM(130);
-      expect(actual).toBe(130);
+      const actual = setTransportBPM(100);
+      expect(actual).toBe(100);
     });
   });
 
-  describe('createSampler', () => {
-    context('when passed a valid value for soundDef', () => {
-      it('returns an instance of ToneSampler', () => {
-        const actual = createSampler('BassDrum');
-        expect(actual).toBeA(Tone.Sampler);
-      });
+  describe('exposeTone', () => {
+    afterEach(() => {
+      window._tone = undefined;
+      window.Transport = undefined;
+      window.Tone = undefined;
     });
 
-    context('when passed an invalid value for soundDef', () => {
-      it('returns undefined', () => {
-        const actual = createSampler('foobar');
-        expect(actual).toBe(undefined);
-      });
-    });
-  });
-});
+    it('exposes these properties on the window object', () => {
+      const mockToneObject = {};
+      exposeTone(mockToneObject);
 
-describe('sound modules', () => {
-  describe('TR808', () => {
-    const { TR808 } = sounds;
-
-    context('when passed an existing value', () => {
-      it('returns the URL of a sound', () => {
-        expect(TR808['HiHat.Open']).toBeA('string');
-      });
-    });
-
-    context('when passed a non-existing value', () => {
-      it('returns undefined', () => {
-        expect(TR808['foobar']).toBe(undefined);
-      });
+      expect(window._tone).toBe(mockToneObject);
+      expect(window.Transport).toBe(Tone.Transport);
+      expect(window.Tone).toBe(Tone);
     });
   });
 });
